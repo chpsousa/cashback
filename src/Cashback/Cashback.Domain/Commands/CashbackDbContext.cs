@@ -1,10 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Cashback.Domain.Models;
+using Cashback.Domain.Models.DbConfig;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cashback.Domain.Commands
 {
-    public class CashbackDbContext
+    public class CashbackDbContext : DbContext
     {
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleItem> SaleItems { get; set; }
+        public DbSet<Cashback.Domain.Models.Cashback> Cashbacks { get; set; }
+
+        public CashbackDbContext(DbContextOptions<CashbackDbContext> options) : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new AlbumDbConfig());
+        }
     }
 }

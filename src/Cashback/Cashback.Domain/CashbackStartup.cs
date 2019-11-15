@@ -19,8 +19,9 @@ namespace Cashback.Domain
 
         public static async void Configure(string cashbackConnStr)
         {
-            CashbackConnectionString = cashbackConnStr;
+            //options.UseInMemoryDatabase("cashback");
 
+            CashbackConnectionString = cashbackConnStr;
             Listeners = GetListeners();
         }
 
