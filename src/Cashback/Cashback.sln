@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cashback.Domain", "Cashback
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cashback.Tests", "Cashback.Tests\Cashback.Tests.csproj", "{DE7C7AAD-B669-45A1-9969-91D4711CA12B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cashback.API", "Cashback.API\Cashback.API.csproj", "{1068F417-AB09-4E5B-B9A8-FAB414BA3C13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1068F417-AB09-4E5B-B9A8-FAB414BA3C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1068F417-AB09-4E5B-B9A8-FAB414BA3C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1068F417-AB09-4E5B-B9A8-FAB414BA3C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1068F417-AB09-4E5B-B9A8-FAB414BA3C13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
