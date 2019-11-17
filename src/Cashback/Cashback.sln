@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cashback.Domain", "Cashback.Domain\Cashback.Domain.csproj", "{027DEECE-1CF8-470F-9CF6-5E2B1E6CD148}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cashback.Domain", "Cashback.Domain\Cashback.Domain.csproj", "{027DEECE-1CF8-470F-9CF6-5E2B1E6CD148}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cashback.Tests", "Cashback.Tests\Cashback.Tests.csproj", "{DE7C7AAD-B669-45A1-9969-91D4711CA12B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{027DEECE-1CF8-470F-9CF6-5E2B1E6CD148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{027DEECE-1CF8-470F-9CF6-5E2B1E6CD148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{027DEECE-1CF8-470F-9CF6-5E2B1E6CD148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7C7AAD-B669-45A1-9969-91D4711CA12B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

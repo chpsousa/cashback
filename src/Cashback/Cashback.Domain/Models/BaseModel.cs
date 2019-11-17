@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Cashback.Domain.Models
 {
-    public abstract class BaseEntity
+    public abstract class BaseModel
     {
+        public string Id { get; set; }
         public bool Removed { get; set; }
 
         public virtual void Remove()

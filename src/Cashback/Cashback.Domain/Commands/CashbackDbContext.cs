@@ -21,6 +21,10 @@ namespace Cashback.Domain.Commands
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new AlbumDbConfig());
+            builder.ApplyConfiguration(new GenreDbConfig());
+            builder.ApplyConfiguration(new CashbackDbConfig());
+            builder.ApplyConfiguration(new SaleDbConfig());
+            builder.ApplyConfiguration(new SaleItemDbConfig());
         }
     }
 }

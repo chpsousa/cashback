@@ -1,23 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
 
 namespace Cashback.Domain.Models.DbConfig
 {
-    public class AlbumDbConfig : IEntityTypeConfiguration<Album>
+    public class GenreDbConfig : IEntityTypeConfiguration<Genre>
     {
-        public void Configure(EntityTypeBuilder<Album> builder)
+        public void Configure(EntityTypeBuilder<Genre> builder)
         {
             var emptyAsNull = new ValueConverter<string, string>(value => value == string.Empty ? null : value, value => value);
-            builder.ToTable("albums", schema: "dbo");
+            builder.ToTable("genres", schema: "dbo");
             builder.HasKey(p => p.Id).HasName("id");
             builder.Property(p => p.Id).HasMaxLength(8).HasColumnType("char(8)");
-            builder.Property(p => p.SpotifyId);
             builder.Property(p => p.Name).HasMaxLength(150).HasColumnName("name").HasConversion(emptyAsNull);
-            builder.Property(p => p.GenreId).HasColumnName("id_genre").IsRequired();
-            builder.HasOne(p => p.Genre);
-
+            builder.HasMany(p => p.Cashbacks).WithOne(p => p.Genre).HasForeignKey(p => p.GenreId);
             builder.HasQueryFilter(p => !p.Removed);
         }
     }
