@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\Albums\" />
+    <Folder Include="Commands\Genres\" />
+    <Folder Include="Commands\Sales\" />
     <Folder Include="Events\Listeners\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
