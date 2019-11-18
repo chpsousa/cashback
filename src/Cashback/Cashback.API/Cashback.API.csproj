@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Cashback.Domain\Cashback.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="v1\Controllers\" />
+  </ItemGroup>
+
 </Project>
