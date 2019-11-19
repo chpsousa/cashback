@@ -1,6 +1,7 @@
 using Cashback.Domain.Commands;
 using Cashback.Domain.Commands.Albums;
 using Cashback.Domain.Commands.Genres;
+using Cashback.Domain.Commands.Spotify;
 using Cashback.Domain.Models;
 using Cashback.Domain.Util;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,9 @@ namespace Cashback.Tests.CommandsTests
             };
 
             var result = await CommandsHandler.Handle(cmd);
+
+            var cmd2 = new SpotifyCommand();
+            var rs = CommandsHandler.Handle(cmd2);
 
             var obj = await DbContext.Albums.Where(w => w.Id == id).FirstOrDefaultAsync();
 
