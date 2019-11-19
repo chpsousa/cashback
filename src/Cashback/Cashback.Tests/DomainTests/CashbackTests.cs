@@ -16,7 +16,7 @@ namespace Cashback.Tests.DomainTests
         [Fact]
         public void CashbackTest()
         {
-            var obj = new Cashback.Domain.Models.Cashback(null, genre, DayOfWeek.Monday, 15);
+            var obj = new Cashback.Domain.Models.Cashback(null, genre.Id, DayOfWeek.Monday, 15);
 
             Assert.NotNull(obj);
             Assert.Equal(15, obj.Percent);

@@ -29,7 +29,7 @@ namespace Cashback.Domain.Commands.Albums
             if (objGenre == null)
                 return await Task.FromResult(new CommandResult(0, ErrorCode.NotFound, "Genre with id was not found"));
 
-            obj = new Album(Id, SpotifyId, Name, objGenre);
+            obj = new Album(Id, SpotifyId, Name, objGenre.Id);
 
             await handler.DbContext.Albums.AddAsync(obj);
             var rows = await handler.DbContext.SaveChangesAsync();
@@ -39,7 +39,7 @@ namespace Cashback.Domain.Commands.Albums
 
         public EventType GetEvent()
         {
-            throw new System.NotImplementedException();
+            return EventType.None;
         }
     }
 }

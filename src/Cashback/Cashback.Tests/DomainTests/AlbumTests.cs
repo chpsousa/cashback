@@ -16,7 +16,7 @@ namespace Cashback.Tests.DomainTests
         [Fact]
         public void AlbumTest()
         {
-            var obj = new Album(null, null, "Test album 1", genre);
+            var obj = new Album(null, null, "Test album 1", genre.Id);
 
             Assert.NotNull(obj);
             Assert.Equal(8, obj.Id.Length);

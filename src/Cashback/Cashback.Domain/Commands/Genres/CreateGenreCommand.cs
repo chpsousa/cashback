@@ -15,7 +15,7 @@ namespace Cashback.Domain.Commands.Genres
 
         public Task<CommandResult> GetErrorAsync(CashbackCommandsHandler handler)
         {
-            return null;
+            return Task.FromResult(new CommandResult(ErrorCode.None));
         }
         public async Task<CommandResult> ExecuteAsync(CashbackCommandsHandler handler)
         {
@@ -25,7 +25,7 @@ namespace Cashback.Domain.Commands.Genres
 
             obj = new Models.Genre(Id, Name);
             foreach (var item in Cashback)
-                obj.AddCashbackConfig(new Models.Cashback(item.Id, obj, item.DayOfWeek, item.Percent));
+                obj.AddCashbackConfig(new Models.Cashback(item.Id, obj.Id, item.DayOfWeek, item.Percent));
 
             await handler.DbContext.Genres.AddAsync(obj);
             await handler.DbContext.Cashbacks.AddRangeAsync(obj.Cashbacks);

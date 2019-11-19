@@ -1,6 +1,7 @@
 using Cashback.Domain;
 using Cashback.Domain.Commands;
 using Cashback.Domain.Events;
+using Cashback.Domain.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 
 namespace Cashback.API
 {
@@ -28,14 +30,14 @@ namespace Cashback.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CashbackDbContext>(options => options
-                .UseSqlServer(Configuration.GetConnectionString("AuditCommands"))
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .EnableSensitiveDataLogging()
                 .ConfigureWarnings(warnings => warnings
                     .Throw(CoreEventId.IncludeIgnoredWarning)
                     .Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
             services.AddScoped<CashbackCommandsHandler>();
-            //services.AddScoped<CashbackQueriesHandler>();
+            services.AddScoped<CashbackQueriesHandler>();
             services.AddScoped<EventsHandler>();
 
             services.AddSwaggerGen(c =>
@@ -68,7 +70,7 @@ namespace Cashback.API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Qualiex Audit API.v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cashback API.v1");
                 c.RoutePrefix = string.Empty;
             });
 

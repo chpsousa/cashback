@@ -16,6 +16,11 @@ namespace Cashback.Domain.Models
             _cashbacks = new List<Cashback>();
         }
 
+        public Genre(string id): this()
+        {
+            this.Id = string.IsNullOrWhiteSpace(id) ? RandomId.NewId() : id;
+        }
+
         public Genre(string id, string name): this()
         {
             this.Id = string.IsNullOrWhiteSpace(id) ? RandomId.NewId() : id;
@@ -38,6 +43,8 @@ namespace Cashback.Domain.Models
 
         public decimal GetCashback(DayOfWeek dayOfWeek)
         {
+            if (this.Cashbacks == null || this.Cashbacks.Count() == 0)
+                return 0;
             return this.Cashbacks.Where(w => w.DayOfWeek == dayOfWeek).FirstOrDefault().Percent;
         }
     }

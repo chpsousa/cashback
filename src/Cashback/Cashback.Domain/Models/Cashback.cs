@@ -12,13 +12,13 @@ namespace Cashback.Domain.Models
 
         public Cashback(
             string id,
-            Genre genre,
+            string genreId,
             DayOfWeek dayOfWeek,
             decimal percent
         )
         {
             this.Id = string.IsNullOrWhiteSpace(id) ? RandomId.NewId() : id;
-            this.Genre = genre;
+            this.Genre = new Genre(genreId);
             this.DayOfWeek = dayOfWeek;
             this.Percent = percent;
         }

@@ -21,6 +21,11 @@ namespace Cashback.Domain.Models
             Date = DateTimeOffset.Now;
         }
 
+        public Sale(string id) : this()
+        {
+            this.Id = string.IsNullOrWhiteSpace(id) ? RandomId.NewId() : id;
+        }
+
         public Sale(
             string id,
             string customerName

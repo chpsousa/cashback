@@ -6,12 +6,12 @@ namespace Cashback.Domain.Models
         public string SaleId { get { return this.Sale.Id; } set { this.SaleId = this.Sale.Id; } }
         public Album Album { get; set; }
         public string AlbumId { get { return this.Album.Id; } set { this.AlbumId = this.Album.Id; } }
-        public decimal CashbackValue { get { return this.Album.Value * (this.Album.Genre.GetCashback(this.Sale.Date.DayOfWeek) / 100); } }
+        public decimal CashbackValue { get { return this.Album.Value * (this.Album.Genre.GetCashback(this.Sale.Date.DayOfWeek) / 100); } set { } }
 
-        public SaleItem(Sale sale, Album album)
+        public SaleItem(string saleId, string albumId)
         {
-            this.Sale = sale;
-            this.Album = album;
+            this.Sale = new Sale(saleId);
+            this.Album = new Album(albumId);
         }
     }
 }
