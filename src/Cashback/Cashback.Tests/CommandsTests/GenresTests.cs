@@ -1,5 +1,6 @@
 using Cashback.Domain.Commands;
 using Cashback.Domain.Commands.Genres;
+using Cashback.Domain.Commands.Spotify;
 using Cashback.Domain.Models;
 using Cashback.Domain.Util;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,25 @@ namespace Cashback.Tests.CommandsTests
             Assert.Equal(ErrorCode.None, result.ErrorCode);
             Assert.Equal(id, obj.Id);
             Assert.True(result.Rows > 0);
+        }
+
+        [Fact]
+        public async void PopulateGenresTest()
+        {
+            var cmd = new PopulateGenresCommand();
+            var result = await CommandsHandler.Handle(cmd);
+            var genres = DbContext.Genres.ToList();
+
+            Assert.Equal(ErrorCode.None, result.ErrorCode);
+            Assert.NotNull(genres);
+            Assert.Contains(genres, a => a.Name == "Pop");
+            Assert.Contains(genres, a => a.Name == "MPB");
+            Assert.Contains(genres, a => a.Name == "Rock");
+            Assert.Contains(genres, a => a.Name == "Classical");
+            Assert.Equal(7, genres.Where(w => w.Name == "Pop").FirstOrDefault().Cashbacks.Count());
+            Assert.Equal(7, genres.Where(w => w.Name == "MPB").FirstOrDefault().Cashbacks.Count());
+            Assert.Equal(7, genres.Where(w => w.Name == "Rock").FirstOrDefault().Cashbacks.Count());
+            Assert.Equal(7, genres.Where(w => w.Name == "Classical").FirstOrDefault().Cashbacks.Count());
         }
     }
 }

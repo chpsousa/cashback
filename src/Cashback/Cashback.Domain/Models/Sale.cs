@@ -12,8 +12,8 @@ namespace Cashback.Domain.Models
         public DateTimeOffset Date { get; set; }
         public string CustomerName { get; set; }
         public IReadOnlyCollection<SaleItem> Items { get { return _items.AsReadOnly(); } }
-        public decimal TotalValue { get { return this.Items.Sum(s => s.Album.Value); } set { this.TotalValue = this.Items.Sum(s => s.Album.Value); } }
-        public decimal TotalCashback { get { return this.Items.Sum(s => s.CashbackValue); } set { this.TotalValue = this.Items.Sum(s => s.CashbackValue); } }
+        public decimal TotalValue { get; set; }
+        public decimal TotalCashback { get; set; }
 
         protected Sale()
         {

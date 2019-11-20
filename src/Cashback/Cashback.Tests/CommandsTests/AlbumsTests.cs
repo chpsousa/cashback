@@ -16,9 +16,7 @@ namespace Cashback.Tests.CommandsTests
     {
         public Empty_DbContextFixture Fixture { get; private set; }
         public CashbackDbContext DbContext { get; private set; }
-
         public CashbackCommandsHandler CommandsHandler { get; private set; }
-
 
         public AlbumsTests(Empty_DbContextFixture fixture)
         {
@@ -47,9 +45,6 @@ namespace Cashback.Tests.CommandsTests
 
             var result = await CommandsHandler.Handle(cmd);
 
-            var cmd2 = new SpotifyCommand();
-            var rs = CommandsHandler.Handle(cmd2);
-
             var obj = await DbContext.Albums.Where(w => w.Id == id).FirstOrDefaultAsync();
 
             Assert.NotNull(result);
@@ -57,6 +52,22 @@ namespace Cashback.Tests.CommandsTests
             Assert.Equal(ErrorCode.None, result.ErrorCode);
             Assert.Equal(id, obj.Id);
             Assert.True(result.Rows > 0);
+        }
+
+        [Fact]
+        public async void PopulateAlbumsTest()
+        {
+            var cmd = new PopulateAlbumCommand();
+            var result = await CommandsHandler.Handle(cmd);
+            var albums = DbContext.Albums.ToList();
+
+            Assert.Equal(ErrorCode.None, result.ErrorCode);
+            Assert.NotNull(albums);
+            Assert.Equal(200, albums.Count());
+            Assert.Equal(50, albums.Where(w => w.Genre.Name == "Pop").Count());
+            Assert.Equal(50, albums.Where(w => w.Genre.Name == "Rock").Count());
+            Assert.Equal(50, albums.Where(w => w.Genre.Name == "MPB").Count());
+            Assert.Equal(50, albums.Where(w => w.Genre.Name == "Classical").Count());
         }
     }
 }

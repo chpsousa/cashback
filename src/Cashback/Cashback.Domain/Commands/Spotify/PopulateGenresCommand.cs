@@ -19,6 +19,8 @@ namespace Cashback.Domain.Commands.Spotify
 
         public async Task<CommandResult> ExecuteAsync(CashbackCommandsHandler handler)
         {
+            if (handler.DbContext.Genres != null && handler.DbContext.Genres.Count() > 0)
+                return await Task.FromResult(new CommandResult(ErrorCode.None));
             if (string.IsNullOrEmpty(AccessToken))
                 Authorize();
 
@@ -28,7 +30,7 @@ namespace Cashback.Domain.Commands.Spotify
             HttpClient httpClient = new HttpClient();
             var genresUrls = new[] {
                 "browse/categories/pop?country=BR",
-                "browse/categories/brazilian?country=BR",
+                "browse/categories/mpb?country=BR",
                 "browse/categories/classical?country=BR",
                 "browse/categories/rock?country=BR"
             };

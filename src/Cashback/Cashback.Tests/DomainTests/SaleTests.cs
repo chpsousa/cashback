@@ -1,6 +1,7 @@
 using Cashback.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Cashback.Tests.DomainTests
@@ -58,18 +59,39 @@ namespace Cashback.Tests.DomainTests
 		public void SaleTest()
 		{
             var album1 = new Album(null, null, "Test Album 1", genres[0].Id);
+            album1.Genre = genres[0];
             var album2 = new Album(null, null, "Test Album 2", genres[1].Id);
+            album2.Genre = genres[1];
             var album3 = new Album(null, null, "Test Album 2", genres[2].Id);
+            album3.Genre = genres[2];
             var album4 = new Album(null, null, "Test Album 2", genres[3].Id);
+            album4.Genre = genres[3];
             var sale = new Sale(null, "Test Customer");
             var saleItem1 = new SaleItem(sale.Id, album1.Id);
+            saleItem1.Album = album1;
+            saleItem1.Sale = sale;
             var saleItem2 = new SaleItem(sale.Id, album2.Id);
+            saleItem2.Album = album2;
+            saleItem2.Sale = sale;
             var saleItem3 = new SaleItem(sale.Id, album3.Id);
+            saleItem3.Album = album3;
+            saleItem3.Sale = sale;
             var saleItem4 = new SaleItem(sale.Id, album4.Id);
+            saleItem4.Album = album4;
+            saleItem4.Sale = sale;
+
+            saleItem1.CalcCashback();
+            saleItem2.CalcCashback();
+            saleItem3.CalcCashback();
+            saleItem4.CalcCashback();
+
             sale.AddItem(saleItem1);
             sale.AddItem(saleItem2);
             sale.AddItem(saleItem3);
             sale.AddItem(saleItem4);
+
+            sale.TotalCashback = sale.Items.Sum(s => s.CashbackValue);
+            sale.TotalValue = sale.Items.Sum(s => s.Album.Value);
 
             Assert.NotNull(sale);
             Assert.Equal((album1.Value + album2.Value + album3.Value + album4.Value), sale.TotalValue);
