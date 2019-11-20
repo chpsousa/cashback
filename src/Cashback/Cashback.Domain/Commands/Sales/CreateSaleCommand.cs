@@ -1,6 +1,9 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Cashback.Domain.Events;
+using Cashback.Domain.Models;
 using Cashback.Domain.Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cashback.Domain.Commands.Sales
 {
@@ -10,19 +13,43 @@ namespace Cashback.Domain.Commands.Sales
         public string CustomerName { get; set; }
         public SaleItemCommand[] Items { get; set; }
 
-        public Task<CommandResult> GetErrorAsync(CashbackCommandsHandler handler)
+        public async Task<CommandResult> GetErrorAsync(CashbackCommandsHandler handler)
         {
-            throw new System.NotImplementedException();
+            if (Items == null || Items.Length == 0)
+                return await Task.FromResult(new CommandResult(ErrorCode.InvalidParameters, "There are no items for this sale"));
+            if (string.IsNullOrWhiteSpace(CustomerName))
+                return await Task.FromResult(new CommandResult(ErrorCode.InvalidParameters, "Parameter customerName is required"));
+            return await Task.FromResult(new CommandResult(ErrorCode.None));
         }
 
-        public Task<CommandResult> ExecuteAsync(CashbackCommandsHandler handler)
+        public async Task<CommandResult> ExecuteAsync(CashbackCommandsHandler handler)
         {
-            throw new System.NotImplementedException();
+            var obj = new Sale(Id, CustomerName);
+            foreach (var item in Items)
+            {
+                var album = await handler.DbContext.Albums.Where(w => w.Id == item.AlbumId).FirstOrDefaultAsync();
+                if (album == null)
+                    return await Task.FromResult(new CommandResult(ErrorCode.NotFound, $"Album with id {item.AlbumId} was not found"));
+                var saleItem = new SaleItem(obj.Id, album.Id);
+                saleItem.Sale = obj;
+                saleItem.Album = album;
+                saleItem.CalcCashback();
+                obj.AddItem(saleItem);
+            }
+
+            obj.TotalValue = obj.Items.Sum(s => s.Album.Value);
+            obj.TotalCashback = obj.Items.Sum(s => s.CashbackValue);
+
+            await handler.DbContext.Sales.AddAsync(obj);
+            await handler.DbContext.SaleItems.AddRangeAsync(obj.Items);
+            var rows = await handler.DbContext.SaveChangesAsync();
+
+            return await Task.FromResult(new CommandResult(rows, ErrorCode.None));
         }
 
         public EventType GetEvent()
         {
-            throw new System.NotImplementedException();
+            return EventType.None;
         }
     }
 
