@@ -1,4 +1,7 @@
 using Cashback.Domain.Commands;
+using Cashback.Domain.Util;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Cashback.Domain.Queries
 {
@@ -11,11 +14,11 @@ namespace Cashback.Domain.Queries
             DbContext = dbContext;
         }
 
-        //public async Task<QueryResult<T>> RunQuery<T>(IQuery<T> query, bool calcTime = false) where T : class, IViewModel
-        //{
-        //    var sw = calcTime ? Stopwatch.StartNew() : null;
-        //    var result = await _RunQuery(query);
-        //    return _GetResult(result, sw);
-        //}
+        public async Task<T[]> RunQuery<T>(IQuery<T> query)
+        {
+            if (!query.IsValid())
+                return null;
+            return await query.ExecuteAsync(this);
+        }
     }
 }

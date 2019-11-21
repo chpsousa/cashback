@@ -29,12 +29,14 @@ namespace Cashback.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CashbackDbContext>(options => options
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .EnableSensitiveDataLogging()
-                .ConfigureWarnings(warnings => warnings
-                    .Throw(CoreEventId.IncludeIgnoredWarning)
-                    .Throw(RelationalEventId.QueryClientEvaluationWarning)));
+            services.AddDbContext<CashbackDbContext>(opt => opt.UseInMemoryDatabase());
+
+            //services.AddDbContext<CashbackDbContext>(options => options
+            //    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            //    .EnableSensitiveDataLogging()
+            //    .ConfigureWarnings(warnings => warnings
+            //        .Throw(CoreEventId.IncludeIgnoredWarning)
+            //        .Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
             services.AddScoped<CashbackCommandsHandler>();
             services.AddScoped<CashbackQueriesHandler>();

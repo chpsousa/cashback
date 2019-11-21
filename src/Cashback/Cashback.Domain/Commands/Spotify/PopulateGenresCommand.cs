@@ -21,6 +21,7 @@ namespace Cashback.Domain.Commands.Spotify
         {
             if (handler.DbContext.Genres != null && handler.DbContext.Genres.Count() > 0)
                 return await Task.FromResult(new CommandResult(ErrorCode.None));
+
             if (string.IsNullOrEmpty(AccessToken))
                 Authorize();
 
@@ -34,6 +35,8 @@ namespace Cashback.Domain.Commands.Spotify
                 "browse/categories/classical?country=BR",
                 "browse/categories/rock?country=BR"
             };
+
+            var rows = 0;
 
             HttpResponseMessage response = null;
             foreach (var url in genresUrls)
@@ -60,10 +63,11 @@ namespace Cashback.Domain.Commands.Spotify
                     Cashback = cashback
                 };
 
-                await handler.Handle(cmd);
+                var rs = await handler.Handle(cmd);
+                rows += rs.Rows;
             }
 
-            return await Task.FromResult(new CommandResult(ErrorCode.None));
+            return await Task.FromResult(new CommandResult(rows, ErrorCode.None));
         }
 
         public EventType GetEvent()

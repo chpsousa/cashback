@@ -1,6 +1,7 @@
 using Cashback.Domain.Models;
 using Cashback.Domain.Models.DbConfig;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +22,23 @@ namespace Cashback.Domain.Commands
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase("cashback");
+        }
+
+        public async Task<(bool CanConnect, string ErrorMessage)> TryConnectionAsync()
+        {
+            try
+            {
+                var canConnect = await this.Database.CanConnectAsync();
+                if (canConnect)
+                    return (true, null);
+                await this.Database.OpenConnectionAsync();
+                this.Database.CloseConnection();
+                return (false, null);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

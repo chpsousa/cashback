@@ -18,6 +18,9 @@ namespace Cashback.Domain.Commands.Spotify
 
         public async Task<CommandResult> ExecuteAsync(CashbackCommandsHandler handler)
         {
+            if (handler.DbContext.Albums.Count() > 0)
+                return await Task.FromResult(new CommandResult(ErrorCode.None));
+
             var genres = handler.DbContext.Genres;
             if (genres == null || genres.Count() == 0)
                 await handler.Handle(new PopulateGenresCommand());
@@ -28,7 +31,7 @@ namespace Cashback.Domain.Commands.Spotify
             IList<AlbumViewModel> result = new List<AlbumViewModel>();
 
             HttpClient httpClient = new HttpClient();
-
+            var rows = 0;
 
             HttpResponseMessage response = null;
             foreach (var genre in genres)
@@ -78,10 +81,11 @@ namespace Cashback.Domain.Commands.Spotify
                     Name = item.Name
                 };
 
-                await handler.Handle(cmd);
+                var rs = await handler.Handle(cmd);
+                rows += rs.Rows;
             }
 
-            return await Task.FromResult(new CommandResult(ErrorCode.None));
+            return await Task.FromResult(new CommandResult(rows, ErrorCode.None));
         }
 
         public EventType GetEvent()
