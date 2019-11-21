@@ -9,7 +9,7 @@ namespace Cashback.Domain.Models
         public string Name { get; set; }
         public decimal Value { get; set; }
         public Genre Genre { get; set; }
-        public string GenreId { get { return this.Genre.Id; } set { this.GenreId = this.Genre.Id; } }
+        public string GenreId { get; set; }
 
         public Album(string id)
         {

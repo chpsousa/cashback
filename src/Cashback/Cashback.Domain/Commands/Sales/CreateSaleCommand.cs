@@ -27,7 +27,13 @@ namespace Cashback.Domain.Commands.Sales
             var obj = new Sale(Id, CustomerName);
             foreach (var item in Items)
             {
-                var album = await handler.DbContext.Albums.Where(w => w.Id == item.AlbumId).FirstOrDefaultAsync();
+                var album = await handler.DbContext
+                    .Albums
+                    .Include(i => i.Genre)
+                    .ThenInclude(t => t.Cashbacks)
+                    .Where(w => w.Id == item.AlbumId)
+                    .FirstOrDefaultAsync();
+
                 if (album == null)
                     return await Task.FromResult(new CommandResult(ErrorCode.NotFound, $"Album with id {item.AlbumId} was not found"));
                 var saleItem = new SaleItem(obj.Id, album.Id);

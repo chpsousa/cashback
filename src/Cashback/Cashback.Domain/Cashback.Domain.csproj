@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Events\Listeners\" />
-    <Folder Include="Queries\Sales\" />
   </ItemGroup>
 
   <ItemGroup>

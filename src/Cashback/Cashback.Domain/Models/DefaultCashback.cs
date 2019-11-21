@@ -31,7 +31,7 @@ namespace Cashback.Domain.Models
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Saturday, 30));
                     break;
 
-                case "Rock":
+                case "Classical":
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Sunday, 35));
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Monday, 3));
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Tuesday, 5));
@@ -41,7 +41,7 @@ namespace Cashback.Domain.Models
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Saturday, 25));
                     break;
 
-                case "Classical":
+                case "Rock":
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Sunday, 40));
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Monday, 10));
                     defaultCashback.Add(new Cashback(null, genreId, DayOfWeek.Tuesday, 15));

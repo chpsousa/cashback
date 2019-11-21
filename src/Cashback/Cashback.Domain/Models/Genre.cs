@@ -7,13 +7,12 @@ namespace Cashback.Domain.Models
 {
     public class Genre : BaseModel
     {
-        private List<Cashback> _cashbacks;
         public string Name { get; set; }
-        public IReadOnlyCollection<Cashback> Cashbacks { get { return _cashbacks.AsReadOnly(); } }
+        public List<Cashback> Cashbacks { get; set; }
 
         protected Genre()
         {
-            _cashbacks = new List<Cashback>();
+            Cashbacks = new List<Cashback>();
         }
 
         public Genre(string id): this()
@@ -32,7 +31,7 @@ namespace Cashback.Domain.Models
             if (cashback.Id == null)
                 cashback.Id = RandomId.NewId();
             cashback.Genre = this;
-            _cashbacks.Add(cashback);
+            this.Cashbacks.Add(cashback);
         }
 
         public void AddCashbackConfigs(IEnumerable<Cashback> cashbacks)
