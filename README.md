@@ -50,17 +50,17 @@ ValuesController
 - [GET] (api_url/values) - Uma controller simples com um health check do serviço
 
 AlbumsController
-- [GET] (api_url/albums) - Retorna uma lista dos albums.
-- [GET] (api_url/albums/id) - Retorna o album do id mencionado.
+- [GET] (api_url/api/albums) - Retorna uma lista dos albums.
+- [GET] (api_url/api/albums/id) - Retorna o album do id mencionado.
 
 GenresController
-- [GET] (api_url/genres) - Retorna uma lista dos gêneros musicais.
-- [GET] (api_url/genres/id) - Retorna o gênero musical do id mencionado.
+- [GET] (api_url/api/genres) - Retorna uma lista dos gêneros musicais.
+- [GET] (api_url/api/genres/id) - Retorna o gênero musical do id mencionado.
 
 SalesController
-- [GET] (api_url/sales) - Retorna uma lista das vendas.
-- [GET] (api_url/sales/id) - Retorna a venda do id mencionado.
-- [POST] (api_url/sales) - Registra uma venda. Para registrar uma venda, utilize o corpo da requisição conforme modelo abaixo:
+- [GET] (api_url/api/sales) - Retorna uma lista das vendas.
+- [GET] (api_url/api/sales/id) - Retorna a venda do id mencionado.
+- [POST] (api_url/api/sales) - Registra uma venda. Para registrar uma venda, utilize o corpo da requisição conforme modelo abaixo:
 
 `{
   "id": "string",
