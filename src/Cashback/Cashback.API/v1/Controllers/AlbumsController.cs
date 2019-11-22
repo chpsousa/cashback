@@ -5,6 +5,7 @@ using Cashback.Domain.Queries.Albums;
 using Cashback.Domain.Util;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Cashback.API.v1.Controllers
@@ -23,6 +24,7 @@ namespace Cashback.API.v1.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(AlbumViewModel[]), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CommandResult>> Get()
         {
             await _commandsHandler.Handle(new PopulateAlbumCommand());
@@ -31,6 +33,7 @@ namespace Cashback.API.v1.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(AlbumViewModel), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CommandResult>> GetById(string id)
         {
             await _commandsHandler.Handle(new PopulateAlbumCommand());

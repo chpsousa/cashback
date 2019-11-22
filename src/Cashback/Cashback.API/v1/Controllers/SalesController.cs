@@ -5,6 +5,7 @@ using Cashback.Domain.Queries.Sales;
 using Cashback.Domain.Util;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Cashback.API.v1.Controllers
@@ -23,6 +24,7 @@ namespace Cashback.API.v1.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(CommandResult), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CommandResult>> Post([FromBody] CreateSaleCommand cmd)
         {
             var result = await _commandsHandler.Handle(cmd);
@@ -30,6 +32,7 @@ namespace Cashback.API.v1.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(SaleViewModel[]), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CommandResult>> Get()
         {
             var list = await _queriesHandler.RunQuery(new ListSalesQuery());
@@ -37,6 +40,7 @@ namespace Cashback.API.v1.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(SaleViewModel), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CommandResult>> GetById(string id)
         {
             var list = await _queriesHandler.RunQuery(new GetSaleQuery() { Id = id });
