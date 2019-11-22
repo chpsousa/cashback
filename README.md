@@ -1,5 +1,6 @@
 # Cashback API v1
 Projeto _back-end_ de exemplo de venda de albums com cálculo de _cashback_.
+
 Para ver a aplicação funcionando [clique aqui](https://cashback-api.azurewebsites.net)
 
 ## Código-fonte
@@ -61,8 +62,7 @@ SalesController
 - [GET] (api_url/sales/id) - Retorna a venda do id mencionado.
 - [POST] (api_url/sales) - Registra uma venda. Para registrar uma venda, utilize o corpo da requisição conforme modelo abaixo:
 
-`
-{
+`{
   "id": "string",
   "customerName": "string",
   "items": [
@@ -70,8 +70,8 @@ SalesController
       "albumId": "string"
     }
   ]
-}
-`
+}`
+
 Uma documentação com maiores detalhes sobre a API pode ser acessada [localmente](https://localhost:44362/) ou no [live-demo](https://cashback-api.azurewebsites.net).
 
 ## Cashback.Tests
