@@ -74,6 +74,10 @@ SalesController
 
 Uma documentação com maiores detalhes sobre a API pode ser acessada [localmente](https://localhost:44362/) ou no [live-demo](https://cashback-api.azurewebsites.net).
 
+## Cashback.Domain
+Projeto .NET Standard com toda a regra da aplicação.
+Está implementada com modelo CQRS e utiliza uma integração com o Spotify para popular os dados.
+
 ## Cashback.Tests
 O projeto conta com testes de unidade automatizados para o domínio e para os comandos.
 Para executar os testes:
