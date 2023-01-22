@@ -14,8 +14,8 @@ namespace Cashback.Domain.Commands.Spotify
         public void Authorize()
         {
             var url = "https://accounts.spotify.com/api/token";
-            var clientId = "0868aaffb9814da7b2c5b46c70e6f8a4";
-            var clientSecret = "241762ee32b6451c9d35264c6683e1c7";
+            var clientId = "";
+            var clientSecret = "";
 
             //request to get the access token
             var data = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("{0}:{1}", clientId, clientSecret)));
